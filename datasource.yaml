@@ -1,0 +1,17 @@
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: {endpoint}
+    jsonData:
+      timeInterval: 5s
+      httpMethod: POST
+      prometheusType: Prometheus
+      sigV4Auth: true
+      sigV4AuthType: keys
+      sigV4Region: {region}
+    secureJsonData:
+      sigV4AccessKey: {key}
+      sigV4SecretKey: {secret}
