@@ -2,7 +2,7 @@
 
 Metrics from Coiled clusters are collected and stored in Prometheus. Some of these metrics are exposed in the Coiled web app, but for access to your cluster metrics, you'll want to use Grafana.
 
-There are many ways to run Grafana. You can use a hosted Grafana service (Grafana Cloud, Amazon Managed Grafana). You can run Grafana on a VM--we do this for internal Coiled users.
+There are many ways to run Grafana. You can use a hosted Grafana service (Grafana Cloud, Amazon Managed Grafana). You can run Grafana on a VM—we do this for internal Coiled users.
 
 But for an individual user, it's easiest to just run Grafana locally using Docker. That's what we'll do here.
 
