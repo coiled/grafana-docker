@@ -13,7 +13,7 @@ The included config will start Grafana, add your datasource and the basic Coiled
 1. Edit datasource.yaml with the config access your Prometheus workspace (endpoint, region, access key and secret)
 2. chmod +x run.sh delete.sh
 3. ./run.sh
-4. On macOS, this will open a web browser automatically, but if that doesn't work, go to the (Grafana dashboard)[http://localhost:3000/d/GvbFsqKVk/coiled-cluster-metrics-basic]
+4. On macOS, this will open a web browser automatically, but if that doesn't work, go to the [Grafana dashboard](http://localhost:3000/d/GvbFsqKVk/coiled-cluster-metrics-basic)
 
 The initial username and password are both 'admin', you can then change the password if you want.
 
