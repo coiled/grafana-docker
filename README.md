@@ -10,7 +10,9 @@ The included config will start Grafana, add your datasource and the basic Coiled
 
 # Get started running Grafana
 
-1. Edit `datasource.yaml` with the config to access your Prometheus workspace (`endpoint`, `region`, `key` and `secret`)
+Your Coiled account will need to be configured with a "single-tenant" Prometheus workspace (or you're Coiled staff and have access to our shared workspace).
+
+1. Run `coiled setup prometheus-datasource --dir datasources` to export configuration for your Prometheus storage as a datasource YAML file (or manually make one based on `datasource-template.yaml` and put it in `datasources/` directory)
 2. `chmod +x run.sh delete.sh`
 3. `./run.sh`
 4. On macOS, this will open a web browser automatically, but if that doesn't work, go to the [Grafana dashboard](http://localhost:3000/d/GvbFsqKVk/coiled-cluster-metrics-basic)
