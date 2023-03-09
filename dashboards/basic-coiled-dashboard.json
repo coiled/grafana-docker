@@ -4467,7 +4467,22 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "avg"
+              "options": "median (50pct)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "mean"
             },
             "properties": [
               {
@@ -4555,11 +4570,23 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
+          "expr": "quantile(\n    0.5,\n    (1-irate(node_cpu_seconds_total{cluster_id=\"$cluster_id\", spec=\"worker\", mode=\"idle\"}[$__rate_interval]))\n)",
+          "hide": false,
+          "legendFormat": "median (50pct)",
+          "range": true,
+          "refId": "median (50pct)"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
           "expr": "avg(\n    (1-irate(node_cpu_seconds_total{cluster_id=\"$cluster_id\", spec=\"worker\", mode=\"idle\"}[$__rate_interval]))\n)",
           "hide": false,
-          "legendFormat": "avg",
+          "legendFormat": "mean",
           "range": true,
-          "refId": "avg"
+          "refId": "mean"
         }
       ],
       "title": "Worker CPU Spread (all cores)",
@@ -4720,6 +4747,55 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "limit"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "60% of limit (default spill threshold)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "median (50pct)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
           }
         ]
       },
@@ -4800,7 +4876,43 @@
           "hide": false,
           "legendFormat": "avg",
           "range": true,
-          "refId": "A"
+          "refId": "avg"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "quantile(0.5, node_memory_MemTotal_bytes{cluster_id=\"$cluster_id\",spec=\"worker\"} - node_memory_MemAvailable_bytes{cluster_id=\"$cluster_id\",spec=\"worker\"})",
+          "hide": false,
+          "legendFormat": "median (50pct)",
+          "range": true,
+          "refId": "median"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "min(\n    node_memory_MemTotal_bytes{cluster_id=\"$cluster_id\", spec=\"worker\"}\n    # only trust metric when scheduler is running\n    and on () rate(node_cpu_seconds_total{cluster_id=\"$cluster_id\", spec=\"scheduler\"}[$__rate_interval]) > 0\n)",
+          "hide": false,
+          "legendFormat": "limit",
+          "range": true,
+          "refId": "limit"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "min(\n    node_memory_MemTotal_bytes{cluster_id=\"$cluster_id\", spec=\"worker\"}\n    # only trust metric when scheduler is running\n    and on () rate(node_cpu_seconds_total{cluster_id=\"$cluster_id\", spec=\"scheduler\"}[$__rate_interval]) > 0\n) * 0.6",
+          "hide": false,
+          "legendFormat": "60% of limit (default spill threshold)",
+          "range": true,
+          "refId": "60% of limit"
         }
       ],
       "title": "Worker Memory Spread",
@@ -5471,7 +5583,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "default",
           "value": "default"
         },
@@ -5596,9 +5708,9 @@
       "30m"
     ]
   },
-  "timezone": "",
+  "timezone": "utc",
   "title": "Coiled Cluster Metrics — Basic",
   "uid": "GvbFsqKVk",
-  "version": 72,
+  "version": 80,
   "weekStart": ""
 }
