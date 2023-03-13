@@ -11,5 +11,4 @@ docker run -d -p 3000:3000 \
 
 # this will work on macOS
 sleep 1
-#open http://localhost:3000
-open http://localhost:3000/d/GvbFsqKVk/coiled-cluster-metrics-basic
+open http://127.0.0.1:3000/d/GvbFsqKVk/coiled-cluster-metrics-basic
