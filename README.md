@@ -14,7 +14,7 @@ Your Coiled account will need to be configured with a "single-tenant" Prometheus
 
 Exporting the datasource configuration requires `coiled>=0.5.3`.
 
-1. Run `coiled setup prometheus-datasource` to export configuration for your Prometheus storage as a datasource YAML file (or manually make one based on `datasource-template.yaml` and put it in `datasources/` directory)
+1. `cd` into this repo and run `coiled setup prometheus-datasource` to export configuration for your Prometheus storage as a datasource YAML file (or manually make one based on `datasource-template.yaml` and put it in `datasources/` directory)
 2. `./run.sh`
 3. On macOS, this will open a web browser automatically, but if that doesn't work, go to the [Grafana dashboard](http://localhost:3000/d/GvbFsqKVk/coiled-cluster-metrics-basic)
 
